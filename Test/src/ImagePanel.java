@@ -21,8 +21,7 @@ public class ImagePanel extends JPanel implements KeyListener{
 	private Image img;
 	int x = 0;
 	int y = 0;
-	int delay=1000;
-	int intervalle = 1000;
+
 	Timer time;
 	Image bone;
 	Image horizontal_bone;
@@ -143,7 +142,6 @@ public class ImagePanel extends JPanel implements KeyListener{
 				case "&" : 
 				g.drawImage(lorann_1, x, y, f);
 				
-				g.drawImage(lorann_2, x, y, f);
 					x+=32;
 					break;
 
@@ -154,7 +152,7 @@ public class ImagePanel extends JPanel implements KeyListener{
 		}
 		
 	
-	/*private static Move Movement(final int pressed) {
+	private static Move Movement(final int pressed) {
         Move userOrder;
         switch (pressed) {
             case KeyEvent.VK_RIGHT:
@@ -178,7 +176,7 @@ public class ImagePanel extends JPanel implements KeyListener{
         }
         return userOrder;
     }
-  */
+  
 	 
 	@Override
     public final void keyPressed(final KeyEvent keyEvent) {
