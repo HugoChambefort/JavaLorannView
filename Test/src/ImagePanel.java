@@ -1,19 +1,17 @@
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
+import javax.swing.*;
 
 
 public class ImagePanel extends JPanel implements KeyListener{
@@ -23,15 +21,25 @@ public class ImagePanel extends JPanel implements KeyListener{
 	private Image img;
 	int x = 0;
 	int y = 0;
+	int delay=1000;
+	int intervalle = 1000;
+	Timer time;
 	Image bone;
 	Image horizontal_bone;
 	Image vertical_bone;
-	Image lorann_b;
+	Image lorann_1;
+	Image lorann_2;
+	Image lorann_3;
+	Image lorann_4;
+	Image lorann_5;
+	Image lorann_6;
+	Image lorann_7;
+	Image lorann_8;
 	Image path;
 	Image enemy;
 	Image purse;
 	Image crystal;
-	
+		
 	//"B","H","H","H","H","H","H","H","H","H","H","H","H","H","H","H","H","H","H","B","/","V","&","_","_","_","_","_","_","_","_","V","_","_","_","_","_","_","_","W","V","/","V","H","H","H","H","H","H","_","_","_","V","_","_","_","_","_","H","H","H","V","/","V","_","_","_","_","_","_","_","_","_","V","_","_","_","_","_","_","_","P","V","/","V","_","W","_","_","_","_","_","_","_","V","_","_","_","_","_","_","_","_","V","/","V","_","_","_","_","_","_","_","_","_","B","_","_","_","_","_","_","_","_","V","/","V","_","B","_","_","_","_","H","H","H","B","H","H","H","_","_","_","H","H","V","/","V","_","V","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","P","V","/","V","_","V","_","_","_","_","_","B","H","H","H","H","H","H","H","H","H","H","V","/","V","_","B","_","_","_","_","_","_","_","_","_","_","_","_","_","_","_","W","V","/","V","_","P","_","V","_","_","_","_","_","_","H","H","H","_","_","_","_","_","V","/","V","_","_","_","_","_","_","_","V","W","_","_","E","V","_","_","_","_","_","V","/","B","H","H","H","H","H","H","H","H","H","H","H","H","H","H","H","H","H","H","B"
 
 	String[] pics = new String[] {
@@ -54,8 +62,12 @@ public class ImagePanel extends JPanel implements KeyListener{
             };
 	
 	
+
+
 	
-		
+	
+	
+	
 	  public ImagePanel(fenetre f_jeu) {
 	   // this(new ImageIcon(img).getImage());
 		  this.f = f_jeu;
@@ -63,12 +75,19 @@ public class ImagePanel extends JPanel implements KeyListener{
 				this.bone = ImageIO.read(this.getClass().getResourceAsStream("bone.png"));
 				this.vertical_bone = ImageIO.read(this.getClass().getResourceAsStream("vertical_bone.png"));
 				this.horizontal_bone = ImageIO.read(this.getClass().getResourceAsStream("horizontal_bone.png"));
-				this.lorann_b = ImageIO.read(this.getClass().getResourceAsStream("lorann_b.png"));
+				this.lorann_1 = ImageIO.read(this.getClass().getResourceAsStream("lorann_1.png"));
+				this.lorann_2 = ImageIO.read(this.getClass().getResourceAsStream("lorann_2.png"));
+				this.lorann_3 = ImageIO.read(this.getClass().getResourceAsStream("lorann_3.png"));
+				this.lorann_4 = ImageIO.read(this.getClass().getResourceAsStream("lorann_4.png"));
+				this.lorann_5 = ImageIO.read(this.getClass().getResourceAsStream("lorann_5.png"));
+				this.lorann_6 = ImageIO.read(this.getClass().getResourceAsStream("lorann_6.png"));
+				this.lorann_7 = ImageIO.read(this.getClass().getResourceAsStream("lorann_7.png"));
+				this.lorann_8 = ImageIO.read(this.getClass().getResourceAsStream("lorann_8.png"));
 				this.path =ImageIO.read(this.getClass().getResourceAsStream("Black.png"));
 				this.enemy =ImageIO.read(this.getClass().getResourceAsStream("monster_2.png"));
 				this.purse =ImageIO.read(this.getClass().getResourceAsStream("purse.png"));
 				this.crystal =ImageIO.read(this.getClass().getResourceAsStream("crystal_ball.png"));
-
+				
 
 				} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -76,38 +95,12 @@ public class ImagePanel extends JPanel implements KeyListener{
 			}
 		  this.setBackground(Color.BLACK);
 	  }
-	 
-	 
-	    
-	private static Move Movement(final int pressed) {
-	        Move userOrder;
-	        switch (pressed) {
-	            case KeyEvent.VK_RIGHT:
-	                userOrder = Move.RIGHT;
-	                break;
-	            case KeyEvent.VK_LEFT:
-	                userOrder = Move.LEFT;
-	                break;
-	            case KeyEvent.VK_UP:
-	                userOrder = Move.UP;
-	                break;
-	            case KeyEvent.VK_DOWN:
-	                userOrder = Move.DOWN;
-	                break;
-	            case KeyEvent.VK_F:
-	                userOrder = Move.FIRE;
-	                break;
-	            default:
-	                userOrder = Move.INOP;
-	                break;
-	        }
-	        return userOrder;
-	    }
+	  
 	  
 
 	public void paint(Graphics g) {
 		super.paint(g);
-		
+		time = new Timer();
 		for(String test : pics){
 		
 			switch(test){
@@ -148,7 +141,9 @@ public class ImagePanel extends JPanel implements KeyListener{
 						break;
 						
 				case "&" : 
-					g.drawImage(lorann_b, x, y, f); 
+				g.drawImage(lorann_1, x, y, f);
+				
+				g.drawImage(lorann_2, x, y, f);
 					x+=32;
 					break;
 
@@ -159,6 +154,32 @@ public class ImagePanel extends JPanel implements KeyListener{
 		}
 		
 	
+	/*private static Move Movement(final int pressed) {
+        Move userOrder;
+        switch (pressed) {
+            case KeyEvent.VK_RIGHT:
+                userOrder = Move.RIGHT;
+                break;
+            case KeyEvent.VK_LEFT:
+                userOrder = Move.LEFT;
+                break;
+            case KeyEvent.VK_UP:
+                userOrder = Move.UP;
+                break;
+            case KeyEvent.VK_DOWN:
+                userOrder = Move.DOWN;
+                break;
+            case KeyEvent.VK_F:
+                userOrder = Move.FIRE;
+                break;
+            default:
+                userOrder = Move.INOP;
+                break;
+        }
+        return userOrder;
+    }
+  */
+	 
 	@Override
     public final void keyPressed(final KeyEvent keyEvent) {
 	}
@@ -179,5 +200,4 @@ public class ImagePanel extends JPanel implements KeyListener{
 
 }
 	
-
 

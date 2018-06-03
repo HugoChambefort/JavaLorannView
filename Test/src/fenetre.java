@@ -18,6 +18,9 @@ public class fenetre  extends JFrame{
 	
 
 	ImagePanel jeu = new ImagePanel(this);
+	
+	
+	
 	public fenetre() {
 		
 		
