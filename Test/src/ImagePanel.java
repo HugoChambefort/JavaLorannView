@@ -21,8 +21,6 @@ public class ImagePanel extends JPanel implements KeyListener{
 	private Image img;
 	int x = 0;
 	int y = 0;
-
-	Timer time;
 	Image bone;
 	Image horizontal_bone;
 	Image vertical_bone;
@@ -118,14 +116,7 @@ public class ImagePanel extends JPanel implements KeyListener{
 			*/
             };
 	
-	
-
-
-	
-	
-	
-	
-	  public ImagePanel(fenetre f_jeu) {
+	 public ImagePanel(fenetre f_jeu) {
 		  this.f = f_jeu;
 		  // load all pictures
 		  try {
@@ -154,10 +145,8 @@ public class ImagePanel extends JPanel implements KeyListener{
 		  // put black background
 		  this.setBackground(Color.BLACK);
 	  }
-	  
-	  
 
-	public void paint(Graphics g) {
+	 public void paint(Graphics g) {
 		super.paint(g);
 		
 		for(String test : map){
@@ -221,8 +210,7 @@ public class ImagePanel extends JPanel implements KeyListener{
 		}
 		}
 		
-	
-	private static Move Movement(final int pressed) {
+	 private static Move Movement(final int pressed) {
         Move userOrder;
         switch (pressed) {
             case KeyEvent.VK_RIGHT:
@@ -247,9 +235,8 @@ public class ImagePanel extends JPanel implements KeyListener{
         return userOrder;
     }
   
-	 
 	@Override
-    public final void keyPressed(final KeyEvent keyEvent) {
+	public final void keyPressed(final KeyEvent keyEvent) {
 	}
 	@Override
 	public void keyReleased(KeyEvent arg0) {
